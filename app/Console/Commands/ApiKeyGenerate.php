@@ -27,7 +27,6 @@ class ApiKeyGenerate extends Command
     {
         $apiKey = str_random(60);
         $this->info('Your API key is: ' . $apiKey);
-        $this->info('Keep this safe. You will not be able to see it again.');
-        $this->info('If you lose your API key, you will not be able to regenerate it.');
+        $this->info('Copy and paste it into your .env file in the API_KEY variable');
     }
 }

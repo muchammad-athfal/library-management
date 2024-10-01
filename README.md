@@ -33,11 +33,12 @@ This is a simple RESTful API built using Laravel for managing a library system. 
    `cp .env.example .env`
 
 4. Set up your environment variables in the `.env` file, especially the database configuration:
-   `DB_HOST=127.0.0.1`
-   `DB_PORT=3306`
-   `DB_DATABASE=library_management_system`
-   `DB_USERNAME=root`
-   `DB_PASSWORD=`
+
+    - `DB_HOST=127.0.0.1`
+    - `DB_PORT=3306`
+    - `DB_DATABASE=library_management_system`
+    - `DB_USERNAME=root`
+    - `DB_PASSWORD=`
 
 5. Generate the application key:
 
@@ -46,6 +47,10 @@ This is a simple RESTful API built using Laravel for managing a library system. 
 6. Run database migrations:
 
 `php artisan migrate`
+
+7. To set the API key to set in the `.env` file, run the following command:
+
+`php artisan generate:api-key`
 
 ## Running the Application
 
