@@ -34,11 +34,11 @@ This is a simple RESTful API built using Laravel for managing a library system. 
 
 4. Set up your environment variables in the `.env` file, especially the database configuration:
 
-    - `DB_HOST=127.0.0.1`
-    - `DB_PORT=3306`
-    - `DB_DATABASE=library_management_system`
-    - `DB_USERNAME=root`
-    - `DB_PASSWORD=`
+-   `DB_HOST=127.0.0.1`
+-   `DB_PORT=3306`
+-   `DB_DATABASE=library_management_system`
+-   `DB_USERNAME=root`
+-   `DB_PASSWORD=`
 
 5. Generate the application key:
 
@@ -48,7 +48,7 @@ This is a simple RESTful API built using Laravel for managing a library system. 
 
 `php artisan migrate`
 
-7. To set the API key to set in the `.env` file, run the following command:
+7. To set the API key in the `.env` file, run the following command:
 
 `php artisan generate:api-key`
 
@@ -101,7 +101,6 @@ Example schema fields:
 To ensure the API is optimized for performance, the following techniques were applied:
 
 -   **Query Optimization**: Eager loading was used to reduce the number of database queries and avoid the N+1 problem when retrieving related data (e.g., authors with their books).
--   **Caching**: Frequently accessed data, such as lists of books and authors, can be cached using Laravel’s cache system for improved performance.
 
 As the library grows to millions of records, further improvements could include:
 
