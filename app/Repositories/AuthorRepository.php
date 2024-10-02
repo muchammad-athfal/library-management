@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Author;
 use App\Repositories\Interfaces\AuthorInterface;
+use Illuminate\Support\Facades\Cache;
 
 class AuthorRepository implements AuthorInterface
 {
@@ -19,9 +20,12 @@ class AuthorRepository implements AuthorInterface
         return $this->author->get();
     }
 
-    public function paginate($limit = 10)
+    public function paginate($limit, $page)
     {
-        return $this->author->paginate($limit);
+        $cacheKey = "authors_page_{$page}_limit_{$limit}";
+        return Cache::remember($cacheKey, 600, function () use ($limit, $page) {
+            return $this->author->paginate($limit, ['*'], 'page', $page);
+        });
     }
 
     public function find($id)

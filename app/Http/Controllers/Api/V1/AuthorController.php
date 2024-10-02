@@ -22,7 +22,9 @@ class AuthorController extends Controller
     public function index()
     {
         $limit = request()->get('limit', 10);
-        $data = $this->authorService->paginate($limit);
+        $page = request()->get('page', 1);
+
+        $data = $this->authorService->paginate($limit, $page);
 
         return response()->json([
             'statusCode' => 200,

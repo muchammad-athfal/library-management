@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Book;
 use App\Repositories\Interfaces\BookInterface;
+use Illuminate\Support\Facades\Cache;
 
 class BookRepository implements BookInterface
 {
@@ -19,9 +20,12 @@ class BookRepository implements BookInterface
         return $this->book->get();
     }
 
-    public function paginate($limit = 10)
+    public function paginate($limit, $page)
     {
-        return $this->book->paginate($limit);
+        $cacheKey = "books_page_{$page}_limit_{$limit}";
+        return Cache::remember($cacheKey, 600, function () use ($limit, $page) {
+            return $this->book->paginate($limit, ['*'], 'page', $page);
+        });
     }
 
     public function find($id)

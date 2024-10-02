@@ -101,6 +101,7 @@ Example schema fields:
 To ensure the API is optimized for performance, the following techniques were applied:
 
 -   **Query Optimization**: Eager loading was used to reduce the number of database queries and avoid the N+1 problem when retrieving related data (e.g., authors with their books).
+-   **Caching**: Frequently accessed data, such as lists of books and authors, can be cached using Laravel’s cache system for improved performance.
 
 As the library grows to millions of records, further improvements could include:
 

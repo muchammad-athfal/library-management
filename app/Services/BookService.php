@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\ServiceHelper;
 use App\Repositories\Interfaces\BookInterface;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
@@ -15,9 +16,9 @@ class BookService
         return $this->bookRepository->get();
     }
 
-    public function paginate($limit)
+    public function paginate($limit, $page)
     {
-        return $this->bookRepository->paginate($limit);
+        return $this->bookRepository->paginate($limit, $page);
     }
 
     public function find($id)
@@ -36,6 +37,8 @@ class BookService
         DB::beginTransaction();
         try {
             $createAuthor = $this->bookRepository->create($data);
+            ServiceHelper::clearCache('books');
+
             DB::commit();
 
             return $createAuthor;
@@ -51,7 +54,9 @@ class BookService
 
         DB::beginTransaction();
         try {
-            $updateData = $this->bookRepository->update($book->id, $data);;
+            $updateData = $this->bookRepository->update($book->id, $data);
+            ServiceHelper::clearCache('books');
+
             DB::commit();
 
             return $updateData;
@@ -68,6 +73,8 @@ class BookService
         DB::beginTransaction();
         try {
             $deleteData = $this->bookRepository->delete($book->id);
+            ServiceHelper::clearCache('books');
+
             DB::commit();
 
             return $deleteData;

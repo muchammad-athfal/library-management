@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Helpers\ServiceHelper;
 use App\Repositories\Interfaces\AuthorInterface;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
@@ -15,9 +16,9 @@ class AuthorService
         return $this->authorRepository->get();
     }
 
-    public function paginate($limit = 10)
+    public function paginate($limit, $page)
     {
-        return $this->authorRepository->paginate($limit);
+        return $this->authorRepository->paginate($limit, $page);
     }
 
     public function find($id)
@@ -36,6 +37,7 @@ class AuthorService
         DB::beginTransaction();
         try {
             $createAuthor = $this->authorRepository->create($data);
+            ServiceHelper::clearCache('authors');
             DB::commit();
 
             return $createAuthor;
@@ -51,7 +53,9 @@ class AuthorService
 
         DB::beginTransaction();
         try {
-            $updateData = $this->authorRepository->update($author->id, $data);;
+            $updateData = $this->authorRepository->update($author->id, $data);
+            ServiceHelper::clearCache('authors');
+
             DB::commit();
 
             return $updateData;
@@ -68,6 +72,8 @@ class AuthorService
         DB::beginTransaction();
         try {
             $deleteData = $this->authorRepository->delete($author->id);
+            ServiceHelper::clearCache('authors');
+
             DB::commit();
 
             return $deleteData;
